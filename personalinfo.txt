@@ -1,0 +1,18 @@
+<!Doctype html>
+<html>
+<head>
+<title>PERSONAL INFO</title>
+<body><centre>
+<h1>PERSONAL INFO</h1><br>
+</head>
+
+
+
+
+
+
+
+
+
+
+</html>

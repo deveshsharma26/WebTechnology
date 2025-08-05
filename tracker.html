@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courier Tracking</title>
+    <style>
+        /* CSS Styling */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .tracking-input {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        #trackingNumber {
+            flex-grow: 1;
+            padding: 12px 15px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        #trackingNumber:focus {
+            border-color: #007bff;
+        }
+
+        #trackBtn {
+            padding: 12px 25px;
+            font-size: 16px;
+            font-weight: 500;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #trackBtn:hover {
+            background-color: #0056b3;
+        }
+        
+        #results {
+            margin-top: 20px;
+        }
+
+        .status-header {
+            padding: 15px;
+            background-color: #e9ecef;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .status-header h3 {
+            margin: 0;
+            font-size: 18px;
+            color: #333;
+        }
+        
+        .status-header p {
+            margin: 5px 0 0;
+            color: #555;
+        }
+        
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+            border-left: 2px solid #e0e0e0;
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 25px;
+        }
+        
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -38px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #007bff;
+            border: 2px solid #fff;
+            box-shadow: 0 0 0 2px #007bff;
+        }
+        
+        .timeline-item.delivered::before {
+             background-color: #28a745;
+             box-shadow: 0 0 0 2px #28a745;
+        }
+
+        .timeline-content p {
+            font-weight: 600;
+            color: #333;
+            margin: 0 0 5px;
+        }
+
+        .timeline-content span {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .error-message {
+            text-align: center;
+            color: #dc3545;
+            font-weight: 500;
+            padding: 15px;
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            border-radius: 8px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>📦 Courier Tracker</h1>
+        <div class="tracking-input">
+            <input type="text" id="trackingNumber" placeholder="Enter Tracking Number">
+            <button id="trackBtn">Track</button>
+        </div>
+        <div id="results">
+            </div>
+    </div>
+
+    <script>
+        // JavaScript Logic
+        document.getElementById('trackBtn').addEventListener('click', function() {
+            const trackingNumber = document.getElementById('trackingNumber').value.trim().toUpperCase();
+            const resultsDiv = document.getElementById('results');
+            
+            // Clear previous results
+            resultsDiv.innerHTML = '';
+
+            // Dummy database of tracking information
+            const trackingData = {
+                "AWB12345IN": {
+                    status: "In Transit",
+                    origin: "Bengaluru, India",
+                    destination: "New York, USA",
+                    history: [
+                        { status: "Order Placed", location: "Bengaluru", date: "July 25, 2025", time: "10:00 AM" },
+                        { status: "Package Picked Up", location: "Bengaluru", date: "July 25, 2025", time: "02:30 PM" },
+                        { status: "Departed from Facility", location: "Bengaluru International Airport", date: "July 26, 2025", time: "05:00 AM" },
+                        { status: "Arrived at Hub", location: "Dubai, UAE", date: "July 27, 2025", time: "11:00 AM" },
+                        { status: "In Transit to Destination", location: "Dubai, UAE", date: "July 28, 2025", time: "09:00 PM" }
+                    ]
+                },
+                "AWB67890DE": {
+                    status: "Delivered",
+                    origin: "Berlin, Germany",
+                    destination: "Mumbai, India",
+                    history: [
+                        { status: "Order Placed", location: "Berlin", date: "July 22, 2025", time: "09:00 AM" },
+                        { status: "Package Picked Up", location: "Berlin", date: "July 22, 2025", time: "01:00 PM" },
+                        { status: "Departed from Facility", location: "Berlin Brandenburg Airport", date: "July 23, 2025", time: "08:00 AM" },
+                        { status: "Arrived at Destination Hub", location: "Mumbai International Airport", date: "July 24, 2025", time: "06:00 PM" },
+                        { status: "Out for Delivery", location: "Mumbai", date: "July 25, 2025", time: "09:00 AM" },
+                        { status: "Delivered", location: "Mumbai", date: "July 25, 2025", time: "01:45 PM" }
+                    ]
+                }
+            };
+
+            if (trackingData[trackingNumber]) {
+                const data = trackingData[trackingNumber];
+                
+                // --- Create Status Header ---
+                const statusHeader = document.createElement('div');
+                statusHeader.className = 'status-header';
+                statusHeader.innerHTML = `
+                    <h3>Current Status: ${data.status}</h3>
+                    <p><strong>From:</strong> ${data.origin} &nbsp;&nbsp; <strong>To:</strong> ${data.destination}</p>
+                `;
+                resultsDiv.appendChild(statusHeader);
+
+                // --- Create Timeline ---
+                const timeline = document.createElement('div');
+                timeline.className = 'timeline';
+
+                data.history.reverse().forEach(item => {
+                    const timelineItem = document.createElement('div');
+                    
+                    // Add 'delivered' class for the final status if applicable
+                    let itemClass = 'timeline-item';
+                    if (item.status.toLowerCase() === 'delivered') {
+                        itemClass += ' delivered';
+                    }
+                    timelineItem.className = itemClass;
+
+                    const timelineContent = document.createElement('div');
+                    timelineContent.className = 'timeline-content';
+                    timelineContent.innerHTML = `
+                        <p>${item.status}</p>
+                        <span>${item.location} | ${item.date}, ${item.time}</span>
+                    `;
+                    timelineItem.appendChild(timelineContent);
+                    timeline.appendChild(timelineItem);
+                });
+
+                resultsDiv.appendChild(timeline);
+                
+            } else if (trackingNumber === '') {
+                 resultsDiv.innerHTML = `<div class="error-message">Please enter a tracking number.</div>`;
+            }
+            else {
+                resultsDiv.innerHTML = `<div class="error-message">Tracking number not found. Please check the number and try again.</div>`;
+            }
+        });
+    </script>
+</body>
+</html>

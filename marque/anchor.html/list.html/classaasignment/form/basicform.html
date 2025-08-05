@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=for, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="">
+        <fieldset>
+            <legend>Personal Info</legend>
+        <label for="username">Company Name</label>
+        <input type="text" name="Company" value="Google" readonly>
+        <br>
+        <br>
+        <label for="username">Username</label>
+        <input type="text" id="username" required autofocus name="username" value="Guest" minlength="4" maxlength="12" size="40">
+        <br>
+        <br>
+        <label for="pass">password</label>
+        <input type="password" id="pass" name="pass">
+        <br>
+        <br>
+        <label for="age">Age</label>
+        <input type="number" id="age" name="age" max="75" min="14" step="10">
+        <br>
+        <br>
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" autocomplete="off" placeholder="Example@gmail.com">
+        <br>
+        <br>
+        <label for="tel">Tel</label>
+        <input type="tel" id="tel" name="tel" pattern="[0-9]{10}">
+        </fieldset>
+        <br>
+        <br>
+        <fieldset>
+        <legend>Additional Info</legend>
+        <label for="">Gender</label>
+        <input type="radio" name="Gender" value="Male">Male
+        <input type="radio" name="Gender" value="Female">Female
+        <input type="radio" name="Gender" value="Others">Others
+        <br>
+        <label for="">Add Your Resume</label>
+        <input type="file" accept=" .jpg, .pdf">
+        <br>
+        <br>
+        <label for="">Skills</label>
+        <input type="checkbox" name="skill1" value="html" checked>html
+        <input type="checkbox" name="skill2" value="css" checked>css
+        <input type="checkbox" name="skill3" value="js" checked>javascript
+        <input type="checkbox" name="skill4" value="react" checked>reactjs
+        <br>
+        <br>
+        <!-- it is a drop down list -->
+        <label for="">Vehicle</label>
+        <select name="vehicle" id="multiple">
+            <optgroup label="cars">
+            <option value="bmw">bmw</option>
+            <option value="alto800">alto800</option>
+            <option value="tata">tata</option>
+            </optgroup>
+            <optgroup label="bikes">
+            <option value="jawa">jawa</option>
+            <option value="splendor">splendor</option>
+            <option value="gt650">gt650</option>
+            </optgroup>
+            <optgroup label="cycles">
+            <option value="hrx">hrx</option>
+            <option value="hero">hero</option>
+            <option value="herculus">herculus</option>
+            </optgroup>
+            </select>
+            <br>
+            <label for="">Select a pet</label>
+            <input type="text" list="pet" name="pet">
+            <datalist id="pet">
+                <option value="Cat">Cat</option>
+                <option value="Dog">Dog</option>
+                <option value="Fish">Fish</option>
+                <option value="Rabbit">Rabbit</option>
+                <option value="Birds">Birds</option>
+            </datalist>
+            </fieldset>
+            <fieldset>
+            <legend>Feedback</legend>
+            <label for="">Feedback</label>
+            <textarea name="" id=""></textarea>
+            </fieldset>
+            <button type="button">Button</button>
+            <button type="submit">Submit</button>
+            <button type="reset">Reset</button>
+            <input type="button" value="This is a button">
+            <input type="reset">
+            <input type="submit">
+        
+        <br>
+        <button>Submit</button>
+    
+    </form>
+</body>
+</html>
